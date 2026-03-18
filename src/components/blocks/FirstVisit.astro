@@ -23,17 +23,17 @@ const infoItems = [
 ---
 
 <section class="first-visit section section--alt" id="prvni-navsteva" aria-label="První návštěva">
-  <div class="first-visit__inner container">
-    <div class="first-visit__heading" data-animate>
+  <div class="container">
+
+    <div data-animate>
       <SectionHeading
         label="Začínáme"
         title="Jste u nás poprvé?"
         subtitle="Při první návštěvě si spolu v klidu sedneme a probereme Vaši současnou péči, požadavky a přání."
-        align="left"
       />
     </div>
 
-    <div class="first-visit__content" data-animate data-delay="200">
+    <div class="first-visit__row" data-animate data-delay="200">
       <div class="first-visit__text">
         <p>
           Pomůžu Vám se zorientovat v nabídce a společně nastavíme plán péče —
@@ -53,24 +53,22 @@ const infoItems = [
           </li>
         ))}
       </ul>
+    </div>
 
+    <div class="first-visit__cta" data-animate data-delay="300">
       <Button href="#kontakt" variant="primary" size="md">Domluvit první návštěvu</Button>
     </div>
+
   </div>
 </section>
 
 <style>
-  .first-visit__inner {
+  .first-visit__row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
+    gap: var(--space-12);
     align-items: start;
-  }
-
-  .first-visit__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
+    margin-top: var(--space-10);
   }
 
   .first-visit__text {
@@ -97,8 +95,13 @@ const infoItems = [
     gap: var(--space-5);
   }
 
+  .first-visit__cta {
+    text-align: center;
+    margin-top: var(--space-10);
+  }
+
   @media (max-width: 768px) {
-    .first-visit__inner {
+    .first-visit__row {
       grid-template-columns: 1fr;
       gap: var(--space-8);
     }

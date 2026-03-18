@@ -1,63 +1,53 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro';
-import InfoBox from '../ui/InfoBox.astro';
 import Button from '../ui/Button.astro';
 
 const features = [
-  {
-    title: 'Tištěný poukaz v luxusní obálce',
-    text: 'Připravíme krásně zabalený dárkový poukaz, který potěší na pohled.',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
-  },
-  {
-    title: 'Elektronický poukaz emailem obratem',
-    text: 'Potřebujete dárek rychle? Elektronický poukaz zašleme ihned po přijetí platby.',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
-  },
-  {
-    title: 'Hodnota 1 000 / 1 500 / 2 000 Kč',
-    text: 'Vyberte nominální hodnotu nebo objednejte poukaz na konkrétní ošetření.',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
-  },
-  {
-    title: 'Platnost 6 měsíců',
-    text: 'Příjemce má půl roku na využití poukazu — dostatek času pro naplánování návštěvy.',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-  },
+  'Tištěný poukaz v luxusní obálce',
+  'Elektronický poukaz emailem obratem',
+  'Hodnota 1 000 / 1 500 / 2 000 Kč',
+  'Platnost 6 měsíců od zakoupení',
 ];
 ---
 
 <section class="gift-cards section section--alt" id="darkove-poukazy" aria-label="Dárkové poukazy">
   <div class="container">
-    <SectionHeading
-      label="Dárkové poukazy"
-      title="Darujte krásu a relaxaci"
-      subtitle="Dárkový poukaz na kosmetické ošetření, masáž, laminaci nebo vizáž — ideální dárek pro každou příležitost."
-    />
-
     <div class="gift-cards__layout" data-animate>
-      <ul class="gift-cards__features" role="list">
-        {features.map(f => (
-          <li>
-            <InfoBox icon={f.icon} title={f.title} text={f.text} />
-          </li>
-        ))}
-      </ul>
+      <div class="gift-cards__left">
+        <SectionHeading
+          label="Dárkové poukazy"
+          title="Darujte krásu a relaxaci"
+          subtitle="Dárkový poukaz na kosmetické ošetření, masáž, laminaci nebo vizáž — ideální dárek pro každou příležitost."
+          align="left"
+        />
 
-      <div class="gift-cards__visual" aria-hidden="true">
-        <div class="gift-cards__card-mock">
-          <div class="gift-cards__card-mock-inner">
-            <p class="gift-cards__card-label">Dárkový poukaz</p>
-            <p class="gift-cards__card-name">JANESKIN</p>
-            <p class="gift-cards__card-value">1 500 Kč</p>
-            <p class="gift-cards__card-validity">Platný 6 měsíců od vydání</p>
-          </div>
+        <ul class="gift-cards__features" role="list">
+          {features.map(f => (
+            <li class="gift-cards__feature">
+              <span class="gift-cards__check" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="gift-cards__feature-title">{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="gift-cards__btn">
+          <Button href="#kontakt" variant="primary" size="md">Objednat poukaz →</Button>
         </div>
       </div>
-    </div>
 
-    <div class="gift-cards__cta">
-      <Button href="#kontakt" variant="primary" size="md">Objednat dárkový poukaz</Button>
+      <div class="gift-cards__visual">
+        <img
+          src="/images/poukazy-janeskin.webp"
+          alt="Dárkové poukazy JANESKIN"
+          class="gift-cards__img"
+          loading="lazy"
+          decoding="async"
+          width="900"
+          height="900"
+        />
+      </div>
     </div>
   </div>
 </section>
@@ -66,74 +56,61 @@ const features = [
   .gift-cards__layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
+    gap: var(--space-16);
     align-items: center;
-    margin-bottom: var(--space-10);
+  }
+
+  .gift-cards__left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .gift-cards__left :global(.section-heading) {
+    margin-bottom: 0;
   }
 
   .gift-cards__features {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
-  /* Mock card visual */
-  .gift-cards__visual {
+  .gift-cards__feature {
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: var(--space-4);
   }
 
-  .gift-cards__card-mock {
-    width: 100%;
-    max-width: 340px;
-    aspect-ratio: 1.586 / 1;
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
-    padding: var(--space-8);
+  .gift-cards__check {
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
-  .gift-cards__card-mock-inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .gift-cards__card-label {
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: rgba(44, 36, 32, 0.65);
+  .gift-cards__feature-title {
+    font-size: var(--text-base);
+    color: var(--color-text);
     font-weight: var(--weight-medium);
   }
 
-  .gift-cards__card-name {
-    font-family: var(--font-heading);
-    font-size: var(--text-3xl);
-    color: var(--color-text);
-    font-weight: var(--weight-regular);
-    line-height: 1;
+  .gift-cards__visual {
+    display: flex;
+    align-items: center;
   }
 
-  .gift-cards__card-value {
-    font-family: var(--font-heading);
-    font-size: var(--text-2xl);
-    color: var(--color-text);
-    font-weight: var(--weight-semibold);
-    margin-top: var(--space-2);
-  }
-
-  .gift-cards__card-validity {
-    font-size: var(--text-xs);
-    color: rgba(44, 36, 32, 0.6);
-  }
-
-  .gift-cards__cta {
-    text-align: center;
+  .gift-cards__img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-xl);
+    display: block;
   }
 
   @media (max-width: 768px) {

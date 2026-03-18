@@ -1,28 +1,11 @@
 ---
 import Button from '../ui/Button.astro';
-import InfoBox from '../ui/InfoBox.astro';
 
 const trustItems = [
-  {
-    title: 'Přes 15 ošetření',
-    text: 'Specializovaná péče pro každý typ pleti',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l3 3 5-5"/></svg>`,
-  },
-  {
-    title: 'Kosmeceutika Larens',
-    text: 'Vědecky ověřené přípravky bez parabenů',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>`,
-  },
-  {
-    title: 'Osobní přístup',
-    text: 'Konzultace a plán péče na míru',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-  },
-  {
-    title: 'Dolní Lutyně',
-    text: 'Parkoviště přímo před salonem',
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
-  },
+  '12+ let zkušeností',
+  'Kosmeceutika Larens',
+  'Certifikovaná vizážistka',
+  'Osobní přístup',
 ];
 ---
 
@@ -57,18 +40,21 @@ const trustItems = [
   </div>
 
   <div class="hero__trust">
-    <div class="hero__trust-inner">
+    <ul class="hero__trust-inner" role="list">
       {trustItems.map(item => (
-        <InfoBox icon={item.icon} title={item.title} text={item.text} />
+        <li class="hero__trust-item">
+          <svg class="hero__trust-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>{item}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
-    min-height: 85vh;
+    min-height: 83vh;
     display: flex;
     flex-direction: column;
   }
@@ -91,12 +77,17 @@ const trustItems = [
   .hero__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      var(--color-overlay) 0%,
-      rgba(44, 36, 32, 0.55) 60%,
-      rgba(44, 36, 32, 0.75) 100%
-    );
+    background:
+      linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.10) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0.50) 100%
+      );
   }
 
   /* Content */
@@ -130,9 +121,9 @@ const trustItems = [
 
   .hero__title {
     font-family: var(--font-heading);
-    font-size: var(--text-6xl);
+    font-size: var(--text-5xl);
     font-weight: var(--weight-regular);
-    line-height: 1.1;
+    line-height: 1.2;
     color: var(--color-white);
     margin-bottom: var(--space-6);
   }
@@ -157,23 +148,37 @@ const trustItems = [
   .hero__trust {
     position: relative;
     z-index: 1;
-    background-color: var(--color-white);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .hero__trust-inner {
+    list-style: none;
     max-width: var(--max-width);
     margin: 0 auto;
     padding: var(--space-6) var(--space-6);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-12);
+    align-items: center;
+    justify-content: center;
   }
 
-  @media (max-width: 1024px) {
-    .hero__trust-inner {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .hero__trust-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+  }
+
+  .hero__trust-check {
+    color: var(--color-accent);
+    flex-shrink: 0;
   }
 
   @media (max-width: 768px) {
@@ -189,15 +194,14 @@ const trustItems = [
       align-items: center;
     }
     .hero__trust-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-4);
+      gap: var(--space-5);
       padding: var(--space-5) var(--space-6);
     }
   }
 
   @media (max-width: 480px) {
     .hero__trust-inner {
-      grid-template-columns: 1fr;
+      gap: var(--space-4);
     }
     .hero__actions {
       flex-direction: column;

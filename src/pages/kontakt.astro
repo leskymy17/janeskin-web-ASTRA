@@ -4,7 +4,6 @@ import PageHeader from '../components/blocks/PageHeader.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import Button from '../components/ui/Button.astro';
 import InfoBox from '../components/ui/InfoBox.astro';
-import Placeholder from '../components/ui/Placeholder.astro';
 
 const hours = [
   { day: 'Pondělí',  time: 'dle objednání' },
@@ -54,13 +53,13 @@ const practicalInfo = [
 
         <!-- Quick contact -->
         <div class="quick-contact">
-          <a href="tel:+420000000000" class="quick-contact__card">
+          <a href="tel:+420724239998" class="quick-contact__card">
             <div class="quick-contact__icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
             <div>
               <p class="quick-contact__label">Zavolejte nám</p>
-              <p class="quick-contact__value">+420 000 000 000</p>
+              <p class="quick-contact__value">+420 724 239 998</p>
             </div>
             <svg class="quick-contact__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
           </a>
@@ -105,7 +104,7 @@ const practicalInfo = [
                   name="phone"
                   autocomplete="tel"
                   required
-                  placeholder="+420 000 000 000"
+                  placeholder="+420 724 239 998"
                 />
               </div>
             </div>
@@ -159,11 +158,27 @@ const practicalInfo = [
       <aside class="contact-page__side" aria-label="Adresa a provozní informace">
 
         <div class="contact-page__map">
-          <Placeholder aspect="4/3" label="Mapa — Dolní Lutyně" />
-          <p class="contact-page__map-note">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Dolní Lutyně (přesná adresa bude doplněna)
-          </p>
+          <a
+            href="https://www.google.com/maps/search/U+Koupali%C5%A1t%C4%9B+472735+53+Doln%C3%AD+Lutyn%C4%9B/@49.8941065,18.4177039,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-page__map-link"
+            aria-label="Otevřít mapu v Google Maps"
+          >
+            <iframe
+              class="contact-page__map-iframe"
+              src="https://maps.google.com/maps?q=49.8941065,18.4177039&z=17&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Mapa salonu JANESKIN — Dolní Lutyně"
+              aria-hidden="true"
+              tabindex="-1"
+            ></iframe>
+            <span class="contact-page__map-overlay">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Otevřít v Google Maps
+            </span>
+          </a>
         </div>
 
         <div class="contact-page__hours">
@@ -360,14 +375,45 @@ const practicalInfo = [
     gap: var(--space-8);
   }
 
-  .contact-page__map-note {
+  .contact-page__map-link {
+    display: block;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    text-decoration: none;
+  }
+
+  .contact-page__map-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    pointer-events: none;
+  }
+
+  .contact-page__map-overlay {
+    position: absolute;
+    bottom: var(--space-3);
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    background-color: var(--color-white);
+    color: var(--color-text);
     font-size: var(--text-xs);
-    color: var(--color-text-soft);
-    margin-top: var(--space-2);
-    justify-content: center;
+    font-weight: var(--weight-medium);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .contact-page__map-link:hover .contact-page__map-overlay {
+    background-color: var(--color-accent);
+    color: var(--color-text);
   }
 
   .contact-page__side-title {

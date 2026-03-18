@@ -28,8 +28,8 @@ const typeScale = [
   { token: '--text-xl',   size: '1.25rem',  px: '20px',  label: 'XL — podnadpisy' },
   { token: '--text-2xl',  size: '1.5rem',   px: '24px',  label: '2XL — H4' },
   { token: '--text-3xl',  size: '1.875rem', px: '30px',  label: '3XL — H3' },
-  { token: '--text-4xl',  size: '2.25rem',  px: '36px',  label: '4XL — H2' },
-  { token: '--text-5xl',  size: '3rem',     px: '48px',  label: '5XL — H1 desktop' },
+  { token: '--text-4xl',  size: '3rem',     px: '48px',  label: '4XL — H2' },
+  { token: '--text-5xl',  size: '4rem',     px: '64px',  label: '5XL — H1 desktop' },
   { token: '--text-6xl',  size: '3.75rem',  px: '60px',  label: '6XL — Hero nadpis' },
 ];
 
@@ -87,6 +87,7 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
           <a href="#spacing">Spacing</a>
           <a href="#radius">Radius</a>
           <a href="#shadows">Stíny</a>
+          <a href="#header">Hlavní menu</a>
           <a href="#buttons">Tlačítka</a>
           <a href="#badges">Badge</a>
           <a href="#cards">Karty</a>
@@ -94,6 +95,7 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
           <a href="#carousel-arrows">Šipky karuselu</a>
           <a href="#headings">SectionHeading</a>
           <a href="#infobox">InfoBox</a>
+          <a href="#checklist">Checklist</a>
           <a href="#placeholder">Placeholder</a>
           <a href="#footer">Patička</a>
         </nav>
@@ -101,6 +103,55 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
     </div>
 
     <div class="sg-body container">
+
+      <!-- ══════════════════════════════════════
+           HLAVNÍ MENU
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="header">
+        <h2 class="sg-section-title">Hlavní menu</h2>
+        <p class="sg-section-desc">
+          Fixní header (<code>position: fixed</code>) s dvěma stavy — výchozí (nad fotkou) a scrollovaný.
+          Živá podoba je viditelná v horní části stránky ↑
+        </p>
+        <div class="sg-footer-tokens">
+          <div class="sg-token-row">
+            <span class="sg-token-label">Výška</span>
+            <span class="sg-token-value">72px</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">Výchozí pozadí</span>
+            <span class="sg-token-value">transparent</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">Výchozí border-bottom</span>
+            <span class="sg-token-value">1px solid rgba(255, 255, 255, 0.08)</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">Scrollovaný – pozadí</span>
+            <span class="sg-token-value">rgba(251, 248, 244, 0.92) + backdrop-filter: blur(12px)</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">Scrollovaný – border-bottom</span>
+            <span class="sg-token-value"><code>var(--color-border)</code></span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">Logo výchozí</span>
+            <span class="sg-token-value">filter: brightness(0) invert(1) — bílá</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">Logo scrollovaný</span>
+            <span class="sg-token-value">filter: none — originální barvy</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">CTA tlačítko výchozí</span>
+            <span class="sg-token-value">transparent + border rgba(255,255,255,0.75)</span>
+          </div>
+          <div class="sg-token-row">
+            <span class="sg-token-label">CTA tlačítko scrollovaný</span>
+            <span class="sg-token-value"><code>var(--color-accent)</code> fill</span>
+          </div>
+        </div>
+      </section>
 
       <!-- ══════════════════════════════════════
            BARVY
@@ -156,11 +207,11 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
           <h3 class="sg-subsection-title">Nadpisy (Playfair Display 500)</h3>
           <div class="sg-type-headings">
             <div class="sg-type-row">
-              <span class="sg-type-meta">H1 · 5xl · 48px</span>
+              <span class="sg-type-meta">H1 · 5xl · 64px</span>
               <h1 class="sg-demo-h1">Péče o Vaši pleť s láskou</h1>
             </div>
             <div class="sg-type-row">
-              <span class="sg-type-meta">H2 · 4xl · 36px</span>
+              <span class="sg-type-meta">H2 · 4xl · 48px</span>
               <h2 class="sg-demo-h2">Co pro Vás mohu udělat</h2>
             </div>
             <div class="sg-type-row">
@@ -569,6 +620,81 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
             title="Bez ikony"
             text="InfoBox lze použít i bez ikony — text se zarovná doleva."
           />
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           CHECKLIST
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="checklist">
+        <h2 class="sg-section-title">Checklist</h2>
+        <p class="sg-section-desc">
+          Seznam výhod nebo vlastností s kruhovou fajfkou. Použití: sekce Dárkové poukazy.
+          Přizpůsobení barev přes <code>:global()</code> — výchozí stav používá <code>var(--color-accent-light)</code> jako pozadí ikony.
+        </p>
+
+        <div class="sg-subsection">
+          <p class="sg-variant-label">Výchozí (světlé pozadí)</p>
+          <ul class="sg-checklist-demo" role="list">
+            <li class="sg-checklist-item">
+              <span class="sg-checklist-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="sg-checklist-title">Tištěný poukaz v luxusní obálce</span>
+            </li>
+            <li class="sg-checklist-item">
+              <span class="sg-checklist-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="sg-checklist-title">Elektronický poukaz emailem obratem</span>
+            </li>
+            <li class="sg-checklist-item">
+              <span class="sg-checklist-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="sg-checklist-title">Hodnota 1 000 / 1 500 / 2 000 Kč</span>
+            </li>
+            <li class="sg-checklist-item">
+              <span class="sg-checklist-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="sg-checklist-title">Platnost 6 měsíců od zakoupení</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sg-subsection">
+          <p class="sg-subsection-title">Tokeny</p>
+          <div class="sg-footer-tokens">
+            <div class="sg-token-row">
+              <span class="sg-token-label">Ikona — velikost</span>
+              <span class="sg-token-value">32 × 32 px</span>
+            </div>
+            <div class="sg-token-row">
+              <span class="sg-token-label">Ikona — tvar</span>
+              <span class="sg-token-value"><code>border-radius: 100px</code> (kruh)</span>
+            </div>
+            <div class="sg-token-row">
+              <span class="sg-token-label">Ikona — pozadí</span>
+              <span class="sg-token-value"><code>var(--color-accent-light)</code></span>
+            </div>
+            <div class="sg-token-row">
+              <span class="sg-token-label">Ikona — barva</span>
+              <span class="sg-token-value"><code>var(--color-accent)</code></span>
+            </div>
+            <div class="sg-token-row">
+              <span class="sg-token-label">Text</span>
+              <span class="sg-token-value"><code>var(--text-base)</code> / <code>var(--weight-medium)</code> / <code>var(--color-text)</code></span>
+            </div>
+            <div class="sg-token-row">
+              <span class="sg-token-label">Mezera mezi položkami</span>
+              <span class="sg-token-value"><code>var(--space-5)</code></span>
+            </div>
+            <div class="sg-token-row">
+              <span class="sg-token-label">Mezera ikona–text</span>
+              <span class="sg-token-value"><code>var(--space-4)</code></span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1099,6 +1225,43 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
     max-width: 560px;
   }
 
+  /* ── Checklist ── */
+  .sg-checklist-demo {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: 480px;
+    padding: var(--space-8);
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .sg-checklist-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .sg-checklist-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sg-checklist-title {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
   /* ── Placeholders ── */
   .sg-placeholders {
     display: grid;
@@ -1119,8 +1282,8 @@ const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
   .spc {
     display: block;
     position: relative;
-    width: 300px;
-    height: 420px;
+    width: 360px;
+    height: 480px;
     border-radius: var(--radius-xl);
     overflow: hidden;
     text-decoration: none;
