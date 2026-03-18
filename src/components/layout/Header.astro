@@ -1,0 +1,529 @@
+---
+const navItems = [
+  { label: 'Služby',      href: '/sluzby' },
+  { label: 'O mně',       href: '/#o-mne' },
+  { label: 'Ceník',       href: '/cenik' },
+  { label: 'Pro nevěsty', href: '/pro-nevesty' },
+  { label: 'Kontakt',     href: '/kontakt' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header" id="header" role="banner">
+  <div class="header__inner container">
+
+    <!-- Logo -->
+    <a href="/" class="header__logo" aria-label="JANESKIN — přejít na úvod">
+      <img
+        src="/images/logo-janeskin.svg"
+        alt="JANESKIN"
+        class="header__logo-img"
+        width="180"
+        height="33"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="header__nav" aria-label="Hlavní navigace">
+      <ul class="header__nav-list" role="list">
+        {navItems.map(item => {
+          const isActive = item.href.startsWith('/') && !item.href.includes('#')
+            ? currentPath.startsWith(item.href) && item.href !== '/'
+              || (item.href === '/' && currentPath === '/')
+            : false;
+          return (
+            <li>
+              <a
+                href={item.href}
+                class="header__nav-link"
+                aria-current={isActive ? 'page' : undefined}
+              >{item.label}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <!-- CTA -->
+    <a href="#kontakt" class="header__cta" aria-label="Objednat se do salonu">
+      Objednat se
+    </a>
+
+    <!-- Hamburger -->
+    <button
+      class="header__hamburger"
+      id="hamburger"
+      aria-label="Otevřít menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="header__hamburger-bar"></span>
+      <span class="header__hamburger-bar"></span>
+      <span class="header__hamburger-bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile off-canvas menu -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Mobilní menu">
+  <div class="mobile-menu__backdrop" id="mobile-backdrop" aria-hidden="true"></div>
+
+  <nav class="mobile-menu__panel" aria-label="Mobilní navigace">
+    <div class="mobile-menu__header">
+      <a href="/" class="header__logo" aria-label="JANESKIN — přejít na úvod">
+        <img
+          src="/images/logo-janeskin.svg"
+          alt="JANESKIN"
+          class="header__logo-img"
+          width="180"
+          height="33"
+          loading="eager"
+        />
+      </a>
+      <button
+        class="mobile-menu__close"
+        id="mobile-close"
+        aria-label="Zavřít menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <ul class="mobile-menu__list" role="list">
+      {navItems.map(item => {
+        const isActive = item.href.startsWith('/') && !item.href.includes('#')
+          ? currentPath.startsWith(item.href) && item.href !== '/'
+          : false;
+        return (
+          <li>
+            <a
+              href={item.href}
+              class="mobile-menu__link"
+              aria-current={isActive ? 'page' : undefined}
+            >{item.label}</a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <a href="#kontakt" class="mobile-menu__cta">Objednat se</a>
+
+    <div class="mobile-menu__contact">
+      <a href="tel:+420000000000" class="mobile-menu__contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +420 000 000 000
+      </a>
+      <a href="mailto:info@janeskin.cz" class="mobile-menu__contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@janeskin.cz
+      </a>
+    </div>
+  </nav>
+</div>
+
+<style>
+  /* ── Header base ── */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    transition: background-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .header--scrolled {
+    background-color: rgba(251, 248, 244, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    height: 72px;
+  }
+
+  /* ── Logo ── */
+  .header__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .header__logo-img {
+    width: 180px;
+    height: auto;
+    display: block;
+    /* Default: bílé logo přes foto */
+    filter: brightness(0) invert(1);
+    transition: filter var(--transition-base);
+  }
+
+  /* Při scrollu: původní tmavá barva */
+  .header--scrolled .header__logo-img {
+    filter: none;
+  }
+
+  .header__logo:hover .header__logo-img {
+    filter: brightness(0) saturate(100%) invert(68%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(95%);
+  }
+
+  .header--scrolled .header__logo:hover .header__logo-img {
+    filter: brightness(0) saturate(100%) invert(68%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(95%);
+  }
+
+  /* ── Desktop nav ── */
+  .header__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .header__nav-link {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    /* Default: bílý text přes foto */
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .header__nav-link:hover {
+    color: var(--color-white);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .header__nav-link[aria-current="page"] {
+    color: var(--color-accent);
+    background-color: rgba(201, 169, 110, 0.18);
+  }
+
+  /* Po scrollu: tmavé texty */
+  .header--scrolled .header__nav-link {
+    color: var(--color-text-soft);
+  }
+
+  .header--scrolled .header__nav-link:hover {
+    color: var(--color-text);
+    background-color: var(--color-bg-alt);
+  }
+
+  .header--scrolled .header__nav-link[aria-current="page"] {
+    color: var(--color-accent);
+    background-color: var(--color-accent-light);
+  }
+
+  /* ── CTA button ── */
+  .header__cta {
+    flex-shrink: 0;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    /* Default: průhledné s bílým rámečkem přes foto */
+    color: var(--color-white);
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-5);
+    text-decoration: none;
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .header__cta:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-white);
+    color: var(--color-white);
+    transform: translateY(-1px);
+  }
+
+  /* Po scrollu: plný accent styl */
+  .header--scrolled .header__cta {
+    color: var(--color-text);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .header--scrolled .header__cta:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+    color: var(--color-text);
+  }
+
+  /* ── Hamburger ── */
+  .header__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .header__hamburger:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .header__hamburger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    /* Default: bílé čáry přes foto */
+    background-color: var(--color-white);
+    border-radius: 2px;
+    transition: transform var(--transition-base), opacity var(--transition-base), background-color var(--transition-base);
+    transform-origin: center;
+  }
+
+  .header--scrolled .header__hamburger-bar {
+    background-color: var(--color-text);
+  }
+
+  .header__hamburger[aria-expanded="true"] .header__hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .header__hamburger[aria-expanded="true"] .header__hamburger-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .header__hamburger[aria-expanded="true"] .header__hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ── Mobile menu ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+  }
+
+  .mobile-menu--open {
+    display: block;
+  }
+
+  .mobile-menu__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-overlay);
+    animation: fadeIn var(--transition-base) ease forwards;
+  }
+
+  .mobile-menu__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(360px, 90vw);
+    background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    overflow-y: auto;
+    animation: slideIn var(--transition-base) ease forwards;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .mobile-menu__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-menu__close {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-border);
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-soft);
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-menu__close:hover {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text);
+  }
+
+  .mobile-menu__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-8);
+  }
+
+  .mobile-menu__link {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-2);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-menu__link:hover,
+  .mobile-menu__link[aria-current="page"] {
+    color: var(--color-accent);
+    background-color: var(--color-bg-alt);
+    padding-left: var(--space-4);
+  }
+
+  .mobile-menu__cta {
+    display: block;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    background-color: var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    text-decoration: none;
+    margin-bottom: var(--space-6);
+    transition: background-color var(--transition-fast);
+  }
+
+  .mobile-menu__cta:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-text);
+  }
+
+  .mobile-menu__contact {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mobile-menu__contact-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .mobile-menu__contact-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes slideIn {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .header__nav {
+      display: none;
+    }
+    .header__cta {
+      display: none;
+    }
+    .header__hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const header    = document.getElementById('header')!;
+  const hamburger = document.getElementById('hamburger')!;
+  const menu      = document.getElementById('mobile-menu')!;
+  const backdrop  = document.getElementById('mobile-backdrop')!;
+  const closeBtn  = document.getElementById('mobile-close')!;
+  const menuLinks = menu.querySelectorAll<HTMLAnchorElement>('.mobile-menu__link, .mobile-menu__cta');
+
+  // Scroll → sticky style
+  const onScroll = () => {
+    header.classList.toggle('header--scrolled', window.scrollY > 20);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Open / close helpers
+  function openMenu() {
+    menu.classList.add('mobile-menu--open');
+    menu.setAttribute('aria-hidden', 'false');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeMenu() {
+    menu.classList.remove('mobile-menu--open');
+    menu.setAttribute('aria-hidden', 'true');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    hamburger.focus();
+  }
+
+  hamburger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+  menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('mobile-menu--open')) {
+      closeMenu();
+    }
+  });
+</script>

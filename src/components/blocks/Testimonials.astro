@@ -1,0 +1,229 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
+
+const testimonials = [
+  {
+    text: 'Krásný salón a hlavně úžasná kosmetička, vše vysvětlí, doporučí nejlepší péči. Pleť se mi po ní krásně zlepšila. Jsem alergik a tato kosmetika mi opravdu sedla.',
+    author: 'Klára',
+    detail: 'Klientka salonu',
+  },
+  {
+    text: 'Jana je naprosto skvělá profesionálka. Její holistický přístup a osobní péče mě nadchly. Salon je nádherný a útulný, cítíte se tam jako doma.',
+    author: 'Markéta',
+    detail: 'Klientka salonu',
+  },
+  {
+    text: 'Po první návštěvě jsem věděla, že jsem našla svou kosmetičku. Profesionální přístup, příjemné prostředí a výsledky, které mluví samy za sebe.',
+    author: 'Petra',
+    detail: 'Klientka salonu',
+  },
+];
+---
+
+<section class="testimonials section section--alt" id="recenze" aria-label="Recenze klientek">
+  <div class="container">
+    <SectionHeading
+      label="Reference"
+      title="Co říkají moje klientky"
+    />
+
+    <div class="testimonials__track-wrapper" aria-label="Recenze zákaznic" data-animate>
+      <ul class="testimonials__track" id="testimonials-track" role="list">
+        {testimonials.map((t, i) => (
+          <li class="testimonials__slide" id={`slide-${i}`} aria-label={`Recenze ${i + 1} z ${testimonials.length}`}>
+            <Card variant="testimonial">
+              <div class="testimonial__body">
+                <p class="testimonial__text">{t.text}</p>
+                <footer class="testimonial__footer">
+                  <div class="testimonial__avatar" aria-hidden="true">
+                    {t.author.charAt(0)}
+                  </div>
+                  <div>
+                    <p class="testimonial__author">{t.author}</p>
+                    <p class="testimonial__detail">{t.detail}</p>
+                  </div>
+                </footer>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="testimonials__controls" role="group" aria-label="Navigace recenzí">
+      <button class="testimonials__btn" id="testimonials-prev" aria-label="Předchozí recenze">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="testimonials__dots" role="tablist" aria-label="Výběr recenze">
+        {testimonials.map((_, i) => (
+          <button
+            class={`testimonials__dot${i === 0 ? ' testimonials__dot--active' : ''}`}
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`slide-${i}`}
+            aria-label={`Recenze ${i + 1}`}
+            data-index={i}
+          ></button>
+        ))}
+      </div>
+      <button class="testimonials__btn" id="testimonials-next" aria-label="Další recenze">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__track-wrapper {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  .testimonials__track {
+    list-style: none;
+    display: flex;
+    transition: transform var(--transition-slow);
+  }
+
+  .testimonials__slide {
+    flex: 0 0 100%;
+    padding: var(--space-2);
+  }
+
+  /* Testimonial card internals */
+  .testimonial__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-top: var(--space-8);
+  }
+
+  .testimonial__text {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .testimonial__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
+
+  .testimonial__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-hover);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .testimonial__author {
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    font-size: var(--text-base);
+  }
+
+  .testimonial__detail {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+  }
+
+  /* Controls */
+  .testimonials__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .testimonials__btn {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-white);
+    color: var(--color-text-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+  }
+
+  .testimonials__btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .testimonials__dots {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .testimonials__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    border: none;
+    background-color: var(--color-border);
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--transition-fast);
+  }
+
+  .testimonials__dot--active,
+  .testimonials__dot:hover {
+    background-color: var(--color-accent);
+    width: 24px;
+  }
+
+  @media (min-width: 769px) {
+    .testimonials__track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      transform: none !important;
+    }
+    .testimonials__controls {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const track = document.getElementById('testimonials-track');
+  const dots = document.querySelectorAll<HTMLButtonElement>('.testimonials__dot');
+  const prevBtn = document.getElementById('testimonials-prev');
+  const nextBtn = document.getElementById('testimonials-next');
+  const total = dots.length;
+  let current = 0;
+
+  function go(index: number) {
+    current = (index + total) % total;
+    if (track) {
+      (track as HTMLElement).style.transform = `translateX(-${current * 100}%)`;
+    }
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('testimonials__dot--active', i === current);
+      dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+  }
+
+  prevBtn?.addEventListener('click', () => go(current - 1));
+  nextBtn?.addEventListener('click', () => go(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+</script>

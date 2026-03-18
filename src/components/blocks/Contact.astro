@@ -1,0 +1,221 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import InfoBox from '../ui/InfoBox.astro';
+import Placeholder from '../ui/Placeholder.astro';
+
+const contactInfo = [
+  {
+    title: 'Adresa',
+    text: 'Dolní Lutyně (přesná adresa bude doplněna)',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+  {
+    title: 'Parkování',
+    text: 'Vyhrazené parkoviště nad domem — pohodlný příjezd bez hledání místa.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+  },
+  {
+    title: 'Platba',
+    text: 'QR kód (převod) nebo hotovost.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+  },
+];
+
+const hours = [
+  { day: 'Pondělí–Pátek', time: 'dle objednání' },
+  { day: 'Sobota', time: 'dle objednání' },
+  { day: 'Neděle', time: 'dle domluvy' },
+];
+---
+
+<section class="contact section" id="kontakt" aria-label="Kontakt">
+  <div class="container">
+    <SectionHeading
+      label="Kontakt"
+      title="Přijďte nás navštívit"
+      subtitle="Těšíme se na Vás. Objednejte se telefonicky, emailem nebo přes formulář."
+    />
+
+    <div class="contact__layout" data-animate>
+      <!-- Info column -->
+      <div class="contact__info">
+        <div class="contact__links">
+          <a href="tel:+420000000000" class="contact__link" aria-label="Zavolat do salonu">
+            <div class="contact__link-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p class="contact__link-label">Telefon</p>
+              <p class="contact__link-value">+420 000 000 000</p>
+            </div>
+          </a>
+
+          <a href="mailto:info@janeskin.cz" class="contact__link" aria-label="Napsat email do salonu">
+            <div class="contact__link-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <p class="contact__link-label">Email</p>
+              <p class="contact__link-value">info@janeskin.cz</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="contact__hours">
+          <h3 class="contact__subtitle">Otevírací doba</h3>
+          <ul class="contact__hours-list" role="list">
+            {hours.map(h => (
+              <li class="contact__hours-row">
+                <span class="contact__hours-day">{h.day}</span>
+                <span class="contact__hours-time">{h.time}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <ul class="contact__extras" role="list">
+          {contactInfo.map(item => (
+            <li>
+              <InfoBox icon={item.icon} title={item.title} text={item.text} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Map column -->
+      <div class="contact__map" aria-label="Mapa polohy salonu">
+        <Placeholder aspect="4/3" label="Mapa — Dolní Lutyně" />
+        <p class="contact__map-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Mapa bude aktivována při spuštění webu
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  /* Links */
+  .contact__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .contact__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contact__link:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .contact__link-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-hover);
+  }
+
+  .contact__link-label {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact__link-value {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  /* Hours */
+  .contact__hours {
+    margin-bottom: var(--space-8);
+  }
+
+  .contact__subtitle {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .contact__hours-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .contact__hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .contact__hours-day {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  .contact__hours-time {
+    color: var(--color-text-soft);
+  }
+
+  /* Extras */
+  .contact__extras {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Map */
+  .contact__map-note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    margin-top: var(--space-3);
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .contact__layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

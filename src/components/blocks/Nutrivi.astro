@@ -1,0 +1,153 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import InfoBox from '../ui/InfoBox.astro';
+
+const benefits = [
+  {
+    title: 'Zdraví kloubů a pohybového aparátu',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  },
+  {
+    title: 'Krása pleti, vlasů a nehtů',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  },
+  {
+    title: 'Imunita a celková regenerace',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  },
+];
+---
+
+<section class="nutrivi section section--alt" id="nutrivi" aria-label="Doplňky stravy Nutrivi">
+  <div class="nutrivi__inner container">
+    <div class="nutrivi__content" data-animate>
+      <SectionHeading
+        label="Doplňky stravy"
+        title="Krása začíná zevnitř"
+        align="left"
+      />
+
+      <p class="nutrivi__text">
+        Nutrivi jsou prémiové doplňky stravy na bázi přírodních peptidů a rostlinných
+        extraktů. Podporují imunitu, regeneraci, zdraví kloubů i krásu pleti a vlasů.
+        Ideální doplněk ke kosmetické péči pro dlouhodobé a viditelné výsledky.
+      </p>
+
+      <ul class="nutrivi__benefits" role="list">
+        {benefits.map(b => (
+          <li>
+            <InfoBox icon={b.icon} title={b.title} />
+          </li>
+        ))}
+      </ul>
+
+      <Button href="/sluzby#nutrivi" variant="text" size="md">Zjistit více o Nutrivi</Button>
+    </div>
+
+    <div class="nutrivi__visual" aria-hidden="true" data-animate data-delay="200">
+      <div class="nutrivi__visual-grid">
+        <div class="nutrivi__visual-card nutrivi__visual-card--accent">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          <span>Nutrivi doplňky</span>
+        </div>
+        <div class="nutrivi__visual-card">
+          <p class="nutrivi__visual-stat">100%</p>
+          <span>přírodní složení</span>
+        </div>
+        <div class="nutrivi__visual-card">
+          <p class="nutrivi__visual-stat">Larens</p>
+          <span>certifikovaná řada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nutrivi__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .nutrivi__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .nutrivi__text {
+    font-size: var(--text-lg);
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .nutrivi__benefits {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Visual */
+  .nutrivi__visual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--space-4);
+  }
+
+  .nutrivi__visual-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    text-align: center;
+    box-shadow: var(--shadow-card);
+  }
+
+  .nutrivi__visual-card:first-child {
+    grid-column: 1 / -1;
+    min-height: 160px;
+    color: var(--color-accent-hover);
+  }
+
+  .nutrivi__visual-card--accent {
+    background-color: var(--color-accent-light);
+    border-color: var(--color-accent-light);
+  }
+
+  .nutrivi__visual-card span {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    font-weight: var(--weight-medium);
+  }
+
+  .nutrivi__visual-stat {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    .nutrivi__inner {
+      grid-template-columns: 1fr;
+    }
+    .nutrivi__visual {
+      display: none;
+    }
+    .nutrivi__text {
+      font-size: var(--text-base);
+    }
+  }
+</style>

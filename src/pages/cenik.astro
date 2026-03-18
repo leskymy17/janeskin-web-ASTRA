@@ -1,0 +1,411 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/blocks/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import CtaBanner from '../components/blocks/CtaBanner.astro';
+
+const pricingData = [
+  {
+    category: 'Kosmetická péče',
+    id: 'kosmeticka-pece',
+    items: [
+      { name: 'Collagen Intensive Hydroboost', price: '1 100 Kč', duration: '60 min', note: 'Ideální pro první návštěvu' },
+      { name: 'Lifting & firming ošetření', price: '1 300 Kč', duration: '90 min' },
+      { name: 'Ošetření akné a problematické pleti', price: '1 100 Kč', duration: '75 min' },
+      { name: 'Anti-pigmentační ošetření', price: '1 200 Kč', duration: '75 min' },
+      { name: 'Ošetření citlivé a reaktivní pleti', price: '1 100 Kč', duration: '60 min' },
+      { name: 'Intenzivní anti-age ošetření', price: '1 500 Kč', duration: '120 min' },
+    ],
+  },
+  {
+    category: 'Chemické peelingy',
+    id: 'chemicke-peelingy',
+    items: [
+      { name: 'Povrchový chemický peeling', price: '1 100 Kč', duration: '60 min', note: 'Peptidy rybího kolagenu' },
+      { name: 'Peeling + maska', price: '1 300 Kč', duration: '75 min' },
+    ],
+  },
+  {
+    category: 'Microneedling s Exosomy',
+    id: 'microneedling',
+    items: [
+      { name: 'Microneedling s Exosomy', price: '2 300 Kč', duration: '90 min', note: 'Exosomy + HA + růstové faktory' },
+      { name: 'Série 3 ošetření', price: '6 300 Kč', duration: '3 × 90 min', note: 'Úspora 600 Kč' },
+    ],
+  },
+  {
+    category: 'Anti Spot Therapy',
+    id: 'anti-spot',
+    items: [
+      { name: 'Anti Spot Therapy', price: '1 100 Kč', duration: '60 min', note: 'Pigmentové skvrny' },
+      { name: 'Série 3 ošetření', price: '3 000 Kč', duration: '3 × 60 min', note: 'Úspora 300 Kč' },
+    ],
+  },
+  {
+    category: 'Kosmetické masáže',
+    id: 'masaze',
+    items: [
+      { name: 'Klasická masáž obličeje, krku a dekoltu', price: '600 Kč', duration: '45 min' },
+      { name: 'Liftingová masáž', price: '750 Kč', duration: '60 min' },
+      { name: 'Mikromasáž očního okolí', price: '400 Kč', duration: '30 min' },
+      { name: 'Relaxační masáž obličeje + záda', price: '900 Kč', duration: '90 min' },
+    ],
+  },
+  {
+    category: 'Laminace řas a obočí',
+    id: 'laminace',
+    items: [
+      { name: 'Laminace řas InLei®', price: '850 Kč', duration: '60 min' },
+      { name: 'Laminace řas + barvení', price: '950 Kč', duration: '75 min' },
+      { name: 'Laminace obočí', price: '450 Kč', duration: '45 min' },
+      { name: 'Laminace obočí + barvení', price: '550 Kč', duration: '60 min' },
+      { name: 'Laminace řas + obočí komplet', price: '1 350 Kč', duration: '120 min', note: 'Zvýhodněná cena' },
+    ],
+  },
+  {
+    category: 'Make-up a vizážistika',
+    id: 'makeup',
+    items: [
+      { name: 'Denní make-up', price: '800 Kč', duration: '60 min' },
+      { name: 'Večerní make-up', price: '900 Kč', duration: '75 min' },
+      { name: 'Foto vizáž', price: '1 100 Kč', duration: '90 min' },
+      { name: 'Svatební líčení vč. zkoušky', price: 'od 3 500 Kč', duration: '2 × 90 min' },
+      { name: 'Kompletní vizáž (make-up + účes)', price: 'od 4 500 Kč', duration: '210 min' },
+      { name: 'Kurz líčení (individuální)', price: '1 500 Kč', duration: '120 min' },
+    ],
+  },
+  {
+    category: 'Doplňkové služby',
+    id: 'doplnkove',
+    items: [
+      { name: 'Barvení obočí', price: '150 Kč', duration: '15 min' },
+      { name: 'Barvení řas', price: '150 Kč', duration: '15 min' },
+      { name: 'Barvení obočí + řas', price: '250 Kč', duration: '25 min' },
+      { name: 'Úprava obočí', price: '80 Kč', duration: '15 min' },
+      { name: 'Epilace horního rtu', price: '80 Kč', duration: '10 min' },
+      { name: 'Nadstandardní maska (přídavek k ošetření)', price: '150 Kč', duration: '+ 15 min' },
+      { name: 'Lehké denní líčení po ošetření', price: '200 Kč', duration: '20 min' },
+    ],
+  },
+  {
+    category: 'Svatební balíčky',
+    id: 'nevesta',
+    items: [
+      { name: 'Příprava pleti — 3× ošetření', price: '3 500 Kč', duration: '3 × 60 min', note: 'Zvýhodněný balíček' },
+      { name: 'Svatební vizáž vč. zkoušky', price: 'od 3 500 Kč', duration: '2 × 90 min' },
+      { name: 'Kompletní vizáž (make-up + účes)', price: 'od 4 500 Kč', duration: '210 min' },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Ceník"
+  description="Ceník kosmetického salonu JANESKIN — Dolní Lutyně. Ceny všech ošetření, masáží, laminací, vizážistiky a svatebních balíčků. Jana Szymiková."
+>
+  <PageHeader
+    label="Ceník"
+    title="Ceník služeb"
+    subtitle="Přehledný ceník všech ošetření. Ceny jsou orientační — konečná cena závisí na délce a rozsahu ošetření."
+    breadcrumb={[{ label: 'Ceník', href: '/cenik' }]}
+  />
+
+  <!-- Kategorie navigace -->
+  <div class="cenik-nav">
+    <div class="container">
+      <ul class="cenik-nav__list" role="list">
+        {pricingData.map(cat => (
+          <li>
+            <a href={`#${cat.id}`} class="cenik-nav__link">{cat.category}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="cenik-content section">
+    <div class="container">
+
+      <!-- Info banner -->
+      <div class="cenik-info" role="note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p>Ceny jsou uvedeny včetně DPH. Na první návštěvu doporučuji <strong>Collagen Intensive Hydroboost</strong> — ideální úvod do kosmeceutiky Larens.</p>
+      </div>
+
+      <!-- Kategorie -->
+      {pricingData.map(cat => (
+        <section class="price-category" id={cat.id} aria-label={cat.category}>
+          <h2 class="price-category__title">{cat.category}</h2>
+          <table class="price-table" role="table" aria-label={`Ceník — ${cat.category}`}>
+            <thead class="price-table__head">
+              <tr>
+                <th scope="col" class="price-table__th price-table__th--name">Ošetření</th>
+                <th scope="col" class="price-table__th price-table__th--duration">Délka</th>
+                <th scope="col" class="price-table__th price-table__th--price">Cena</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cat.items.map((item, i) => (
+                <tr class="price-table__row">
+                  <td class="price-table__td price-table__name">
+                    {item.name}
+                    {item.note && <span class="price-table__note">{item.note}</span>}
+                  </td>
+                  <td class="price-table__td price-table__duration">{item.duration}</td>
+                  <td class="price-table__td price-table__price">
+                    <Badge text={item.price} variant="gold" />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ))}
+
+      <!-- Dárkové poukazy -->
+      <section class="price-category" id="darkove-poukazy" aria-label="Dárkové poukazy">
+        <h2 class="price-category__title">Dárkové poukazy</h2>
+        <div class="voucher-grid">
+          {[1000, 1500, 2000].map(val => (
+            <div class="voucher-card">
+              <p class="voucher-card__label">Dárkový poukaz</p>
+              <p class="voucher-card__value">{val.toLocaleString('cs-CZ')} Kč</p>
+              <p class="voucher-card__validity">Platnost 6 měsíců</p>
+            </div>
+          ))}
+        </div>
+        <p class="voucher-note">Poukaz lze objednat jako tištěný (v luxusní obálce) nebo elektronický (emailem obratem).</p>
+      </section>
+
+      <div class="cenik-cta">
+        <Button href="/kontakt" variant="primary" size="lg">Objednat se</Button>
+        <Button href="tel:+420000000000" variant="outline" size="lg">Zavolat</Button>
+      </div>
+    </div>
+  </div>
+
+  <CtaBanner />
+</Layout>
+
+<style>
+  /* Category nav */
+  .cenik-nav {
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 72px;
+    z-index: calc(var(--z-header) - 1);
+  }
+
+  .cenik-nav__list {
+    list-style: none;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .cenik-nav__list::-webkit-scrollbar { display: none; }
+
+  .cenik-nav__link {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-soft);
+    text-decoration: none;
+    padding: var(--space-4) var(--space-4);
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .cenik-nav__link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  /* Info banner */
+  .cenik-info {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background-color: var(--color-accent-light);
+    border: 1px solid var(--color-accent-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-12);
+    color: var(--color-accent-hover);
+  }
+
+  .cenik-info svg { flex-shrink: 0; margin-top: 2px; }
+
+  .cenik-info p {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .cenik-info strong {
+    color: var(--color-accent-hover);
+    font-weight: var(--weight-medium);
+  }
+
+  /* Price categories */
+  .price-category {
+    margin-bottom: var(--space-12);
+    scroll-margin-top: calc(72px + 48px);
+  }
+
+  .price-category__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-accent-light);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Table */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .price-table__head {
+    background-color: var(--color-bg-alt);
+  }
+
+  .price-table__th {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .price-table__th--duration,
+  .price-table__th--price {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .price-table__row {
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color var(--transition-fast);
+  }
+
+  .price-table__row:hover {
+    background-color: var(--color-bg-alt);
+  }
+
+  .price-table__td {
+    padding: var(--space-4) var(--space-4);
+    vertical-align: middle;
+  }
+
+  .price-table__name {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    font-weight: var(--weight-regular);
+  }
+
+  .price-table__note {
+    display: inline-block;
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-full);
+    padding: 1px var(--space-2);
+    margin-left: var(--space-2);
+    font-style: italic;
+  }
+
+  .price-table__duration {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .price-table__price {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* Vouchers */
+  .voucher-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .voucher-card {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    box-shadow: var(--shadow-md);
+  }
+
+  .voucher-card__label {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(44, 36, 32, 0.6);
+    font-weight: var(--weight-medium);
+  }
+
+  .voucher-card__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    color: var(--color-text);
+    font-weight: var(--weight-regular);
+    line-height: 1;
+  }
+
+  .voucher-card__validity {
+    font-size: var(--text-xs);
+    color: rgba(44, 36, 32, 0.55);
+    margin-top: var(--space-1);
+  }
+
+  .voucher-note {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+  }
+
+  /* CTA */
+  .cenik-cta {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-12);
+  }
+
+  /* Mobile table */
+  @media (max-width: 640px) {
+    .price-table__th--duration,
+    .price-table__duration {
+      display: none;
+    }
+    .voucher-grid {
+      grid-template-columns: 1fr;
+    }
+    .cenik-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

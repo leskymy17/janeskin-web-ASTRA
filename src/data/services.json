@@ -1,0 +1,58 @@
+[
+  {
+    "id": "kosmeticka-pece",
+    "title": "Kosmetická péče",
+    "description": "Specializovaná ošetření s kosmeceutikou Larens — od hluboké hydratace přes lifting až po řešení akné, pigmentací či citlivé pleti.",
+    "priceFrom": "1 100 Kč",
+    "duration": "60–120 min"
+  },
+  {
+    "id": "chemicke-peelingy",
+    "title": "Chemické peelingy",
+    "description": "Povrchové chemické peelingy s přírodními peptidy rybího kolagenu. Pleť se zjemní, vyhladí a projasní bez olupování.",
+    "priceFrom": "1 100 Kč",
+    "duration": "60 min"
+  },
+  {
+    "id": "microneedling",
+    "title": "Microneedling s Exosomy",
+    "description": "Moderní estetická procedura spojující exosomy, kyselinu hyaluronovou a růstové faktory pro omlazení a zpevnění pleti.",
+    "priceFrom": "2 300 Kč",
+    "duration": "90 min"
+  },
+  {
+    "id": "anti-spot",
+    "title": "Anti Spot Therapy",
+    "description": "Rozjasňující procedura zaměřená na pigmentové skvrny — po slunci, hormonální, po akné. Sjednocení tónu pleti.",
+    "priceFrom": "1 100 Kč",
+    "duration": "60 min"
+  },
+  {
+    "id": "masaze",
+    "title": "Kosmetické masáže",
+    "description": "Tři typy masáží obličeje, krku a dekoltu — klasická, liftingová a mikromasáž očního okolí. Relaxace i omlazení.",
+    "priceFrom": "600 Kč",
+    "duration": "45–90 min"
+  },
+  {
+    "id": "laminace",
+    "title": "Laminace řas a obočí",
+    "description": "Pokročilá laminace od InLei® — natočení, barvení a výživa řas i obočí. Zahušťuje řasy až o 25 %.",
+    "priceFrom": "450 Kč",
+    "duration": "45–120 min"
+  },
+  {
+    "id": "makeup",
+    "title": "Make-up a vizážistika",
+    "description": "Svatební líčení, foto vizáž, kurzy líčení s Larens Colour i kompletní make-up proměny včetně účesů.",
+    "priceFrom": "800 Kč",
+    "duration": "60–210 min"
+  },
+  {
+    "id": "doplnkove",
+    "title": "Doplňkové služby",
+    "description": "Barvení a úprava obočí a řas, epilace, nadstandardní masky a ampule, lehké denní líčení po ošetření.",
+    "priceFrom": "80 Kč",
+    "duration": "15–30 min"
+  }
+]

@@ -1,0 +1,433 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/blocks/PageHeader.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
+import InfoBox from '../components/ui/InfoBox.astro';
+import Placeholder from '../components/ui/Placeholder.astro';
+
+const hours = [
+  { day: 'Pondělí',  time: 'dle objednání' },
+  { day: 'Úterý',    time: 'dle objednání' },
+  { day: 'Středa',   time: 'dle objednání' },
+  { day: 'Čtvrtek',  time: 'dle objednání' },
+  { day: 'Pátek',    time: 'dle objednání' },
+  { day: 'Sobota',   time: 'dle objednání' },
+  { day: 'Neděle',   time: 'dle domluvy' },
+];
+
+const practicalInfo = [
+  {
+    title: 'Parkování zdarma',
+    text: 'Vyhrazené parkoviště přímo nad domem — přijeďte bez starostí.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+  },
+  {
+    title: 'Platba',
+    text: 'QR kód (bankovní převod) nebo hotovost.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+  },
+  {
+    title: 'Bezbariérový přístup',
+    text: 'Salon je přístupný — v případě potřeby nás předem kontaktujte.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2"/><path d="M12 7v7"/><path d="M9 14l-2 5"/><path d="M15 14l2 5"/><path d="M9 11h6"/></svg>`,
+  },
+];
+---
+
+<Layout
+  title="Kontakt"
+  description="Kontaktujte kosmetický salon JANESKIN v Dolní Lutyni. Telefon, email, adresa, otevírací doba a objednávkový formulář. Jana Szymiková."
+>
+  <PageHeader
+    label="Kontakt"
+    title="Jsme tu pro Vás"
+    subtitle="Objednejte se telefonicky, emailem nebo přes formulář. Odpovíme co nejdříve."
+    breadcrumb={[{ label: 'Kontakt', href: '/kontakt' }]}
+  />
+
+  <section class="contact-page section" aria-label="Kontaktní informace">
+    <div class="contact-page__layout container">
+
+      <!-- Left: info + form -->
+      <div class="contact-page__main">
+
+        <!-- Quick contact -->
+        <div class="quick-contact">
+          <a href="tel:+420000000000" class="quick-contact__card">
+            <div class="quick-contact__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p class="quick-contact__label">Zavolejte nám</p>
+              <p class="quick-contact__value">+420 000 000 000</p>
+            </div>
+            <svg class="quick-contact__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </a>
+
+          <a href="mailto:info@janeskin.cz" class="quick-contact__card">
+            <div class="quick-contact__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <p class="quick-contact__label">Napište nám</p>
+              <p class="quick-contact__value">info@janeskin.cz</p>
+            </div>
+            <svg class="quick-contact__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </a>
+        </div>
+
+        <!-- Booking form -->
+        <div class="booking-form-wrap">
+          <h2 class="booking-form-wrap__title">Objednejte se online</h2>
+          <p class="booking-form-wrap__note">Formulář je nezávazný. Ozveme se Vám do 24 hodin s potvrzením termínu.</p>
+
+          <form class="booking-form" name="objednavka" method="POST" novalidate>
+            <div class="booking-form__row">
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="name">Jméno a příjmení <span aria-hidden="true">*</span></label>
+                <input
+                  class="booking-form__input"
+                  type="text"
+                  id="name"
+                  name="name"
+                  autocomplete="name"
+                  required
+                  placeholder="Jana Nováková"
+                />
+              </div>
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="phone">Telefon <span aria-hidden="true">*</span></label>
+                <input
+                  class="booking-form__input"
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  autocomplete="tel"
+                  required
+                  placeholder="+420 000 000 000"
+                />
+              </div>
+            </div>
+
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="email">Email</label>
+              <input
+                class="booking-form__input"
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                placeholder="jana@example.cz"
+              />
+            </div>
+
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="service">Zájem o službu</label>
+              <select class="booking-form__input booking-form__select" id="service" name="service">
+                <option value="">— Vyberte službu —</option>
+                <option value="kosmeticka-pece">Kosmetická péče</option>
+                <option value="chemicke-peelingy">Chemické peelingy</option>
+                <option value="microneedling">Microneedling s Exosomy</option>
+                <option value="anti-spot">Anti Spot Therapy</option>
+                <option value="masaze">Kosmetické masáže</option>
+                <option value="laminace">Laminace řas a obočí</option>
+                <option value="makeup">Make-up a vizážistika</option>
+                <option value="nevesta">Svatební balíček</option>
+                <option value="doplnkove">Doplňkové služby</option>
+                <option value="konzultace">Vstupní konzultace</option>
+              </select>
+            </div>
+
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="message">Zpráva / přání termínu</label>
+              <textarea
+                class="booking-form__input booking-form__textarea"
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Např. preferuji dopoledne v pracovní dny..."
+              ></textarea>
+            </div>
+
+            <Button type="submit" variant="primary" size="lg">Odeslat objednávku</Button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: map + hours + practical -->
+      <aside class="contact-page__side" aria-label="Adresa a provozní informace">
+
+        <div class="contact-page__map">
+          <Placeholder aspect="4/3" label="Mapa — Dolní Lutyně" />
+          <p class="contact-page__map-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Dolní Lutyně (přesná adresa bude doplněna)
+          </p>
+        </div>
+
+        <div class="contact-page__hours">
+          <h3 class="contact-page__side-title">Otevírací doba</h3>
+          <dl class="hours-list">
+            {hours.map(h => (
+              <div class="hours-list__row">
+                <dt>{h.day}</dt>
+                <dd>{h.time}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div class="contact-page__practical">
+          <h3 class="contact-page__side-title">Praktické informace</h3>
+          <ul role="list" style="list-style: none; display: flex; flex-direction: column; gap: var(--space-4);">
+            {practicalInfo.map(info => (
+              <li>
+                <InfoBox icon={info.icon} title={info.title} text={info.text} />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-page__layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .contact-page__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  /* Quick contact */
+  .quick-contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .quick-contact__card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .quick-contact__card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .quick-contact__icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-hover);
+  }
+
+  .quick-contact__label {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-1);
+  }
+
+  .quick-contact__value {
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .quick-contact__arrow {
+    margin-left: auto;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+  }
+
+  .quick-contact__card:hover .quick-contact__arrow {
+    transform: translateX(3px);
+  }
+
+  /* Form */
+  .booking-form-wrap__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+  }
+
+  .booking-form-wrap__note {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    margin-bottom: var(--space-6);
+  }
+
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .booking-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .booking-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .booking-form__label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .booking-form__label span {
+    color: var(--color-accent);
+  }
+
+  .booking-form__input {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .booking-form__input::placeholder {
+    color: var(--color-border);
+  }
+
+  .booking-form__input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+  }
+
+  .booking-form__select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B5D4F' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    padding-right: var(--space-10);
+    cursor: pointer;
+  }
+
+  .booking-form__textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  /* Sidebar */
+  .contact-page__side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .contact-page__map-note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    margin-top: var(--space-2);
+    justify-content: center;
+  }
+
+  .contact-page__side-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Hours table */
+  .hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .hours-list__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .hours-list__row dt {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  .hours-list__row dd {
+    color: var(--color-text-soft);
+    font-style: normal;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .contact-page__layout {
+      grid-template-columns: 1fr;
+    }
+    .contact-page__side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+    .contact-page__map {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .quick-contact {
+      grid-template-columns: 1fr;
+    }
+    .booking-form__row {
+      grid-template-columns: 1fr;
+    }
+    .contact-page__side {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,203 @@
+---
+import Button from '../ui/Button.astro';
+import InfoBox from '../ui/InfoBox.astro';
+
+const trustItems = [
+  {
+    title: 'Přes 15 ošetření',
+    text: 'Specializovaná péče pro každý typ pleti',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l3 3 5-5"/></svg>`,
+  },
+  {
+    title: 'Kosmeceutika Larens',
+    text: 'Vědecky ověřené přípravky bez parabenů',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>`,
+  },
+  {
+    title: 'Osobní přístup',
+    text: 'Konzultace a plán péče na míru',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  },
+  {
+    title: 'Dolní Lutyně',
+    text: 'Parkoviště přímo před salonem',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+];
+---
+
+<section class="hero" aria-label="Uvítací sekce">
+  <div class="hero__bg">
+    <img
+      src="/images/hero-hp.webp"
+      alt="Kosmetické ošetření v salonu JANESKIN"
+      class="hero__img"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      width="1406"
+      height="938"
+    />
+    <div class="hero__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__content">
+    <div class="hero__text">
+      <p class="hero__label" data-animate data-delay="100">Kosmetický salon · Dolní Lutyně</p>
+      <h1 class="hero__title" data-animate data-delay="200">Péče o Vaši pleť<br />s láskou, odborností<br />a vědou</h1>
+      <p class="hero__subtitle" data-animate data-delay="300">
+        Osobní přístup, kosmeceutická péče Larens a více než 15 specializovaných ošetření
+        pro každý typ pleti. Pro ženy i muže, bez rozdílu věku.
+      </p>
+      <div class="hero__actions" data-animate data-delay="400">
+        <Button href="#kontakt" variant="primary" size="lg">Objednat se</Button>
+        <Button href="/sluzby" variant="outline" size="lg">Prohlédnout služby</Button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__trust">
+    <div class="hero__trust-inner">
+      {trustItems.map(item => (
+        <InfoBox icon={item.icon} title={item.title} text={item.text} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* Background */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--color-overlay) 0%,
+      rgba(44, 36, 32, 0.55) 60%,
+      rgba(44, 36, 32, 0.75) 100%
+    );
+  }
+
+  /* Content */
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    padding: 0 var(--space-6);
+    padding-top: 120px;
+    padding-bottom: var(--space-16);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero__text {
+    max-width: 700px;
+  }
+
+  .hero__label {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-6xl);
+    font-weight: var(--weight-regular);
+    line-height: 1.1;
+    color: var(--color-white);
+    margin-bottom: var(--space-6);
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.65;
+    max-width: 580px;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  /* Trust strip */
+  .hero__trust {
+    position: relative;
+    z-index: 1;
+    background-color: var(--color-white);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .hero__trust-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-6);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 1024px) {
+    .hero__trust-inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero__title {
+      font-size: var(--text-4xl);
+    }
+    .hero__subtitle {
+      font-size: var(--text-base);
+    }
+    .hero__content {
+      padding-top: 100px;
+      padding-bottom: var(--space-10);
+    }
+    .hero__trust-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-6);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__trust-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero__actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

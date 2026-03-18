@@ -1,0 +1,107 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
+import Placeholder from '../ui/Placeholder.astro';
+
+const equipment = [
+  {
+    title: 'Ultrazvuková špachtle',
+    description: 'Hloubkové čištění pórů a efektivní zapracování aktivních látek do pleti bez podráždění.',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 16.5c-1.5 1.5-1.5 3 0 4.5s3 1.5 4.5 0l11-11c1.5-1.5 1.5-3 0-4.5s-3-1.5-4.5 0L4.5 16.5z"/><path d="M15 5l4 4"/></svg>`,
+  },
+  {
+    title: 'Mikrojehličkovací pero',
+    description: 'Přesná stimulace přirozené tvorby kolagenu a elastinu. Ideální pro lifting, jizvy i pigmentace.',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  },
+  {
+    title: 'Galvanická žehlička s LED terapií',
+    description: 'Tři účinky v jednom přístroji — hloubkové čištění galvanikou, ionoforéza pro vstřebání látek a fotonová terapie.',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>`,
+  },
+];
+---
+
+<section class="equipment section" id="pristroje" aria-label="Přístroje">
+  <div class="container">
+    <SectionHeading
+      label="Vybavení"
+      title="Moderní přístroje pro nejlepší výsledky"
+      subtitle="Každý přístroj je cíleně vybrán pro maximální účinnost a bezpečí Vaší pleti."
+    />
+
+    <ul class="equipment__grid" role="list" data-animate>
+      {equipment.map(item => (
+        <li>
+          <Card variant="info">
+            <div class="equipment-card__placeholder">
+              <Placeholder aspect="16/9" label={item.title} />
+            </div>
+            <div class="equipment-card__icon" aria-hidden="true" set:html={item.icon} />
+            <h3 class="equipment-card__title">{item.title}</h3>
+            <p class="equipment-card__desc">{item.description}</p>
+          </Card>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .equipment__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .equipment-card__placeholder {
+    margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    overflow: hidden;
+  }
+
+  .equipment-card__placeholder :global(.placeholder) {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .equipment-card__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-hover);
+    flex-shrink: 0;
+  }
+
+  .equipment-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .equipment-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 1024px) {
+    .equipment__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .equipment__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import services from '../../data/services.json';
+
+const serviceIcons: Record<string, string> = {
+  'kosmeticka-pece': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  'chemicke-peelingy': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-5 0V4.5A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 8A2.5 2.5 0 0 1 17 10.5v9a2.5 2.5 0 0 1-5 0v-9A2.5 2.5 0 0 1 14.5 8z"/></svg>`,
+  'microneedling': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+  'anti-spot': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>`,
+  'masaze': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 11a3 3 0 0 0-3-3H9.5A3.5 3.5 0 0 0 6 11.5V17a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-6z"/><path d="M10 8V6a2 2 0 1 1 4 0v2"/></svg>`,
+  'laminace': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  'makeup': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+  'doplnkove': `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+};
+---
+
+<section class="services section" id="sluzby" aria-label="Nabídka služeb">
+  <div class="container">
+    <SectionHeading
+      label="Nabídka"
+      title="Co pro Vás mohu udělat"
+      subtitle="Každé ošetření přizpůsobuji stavu Vaší pleti a individuálním potřebám. Využívám výhradně kosmeceutiku Larens."
+    />
+
+    <ul class="services__grid" role="list" data-animate>
+      {services.map(service => (
+        <li>
+          <Card variant="service">
+            <div class="service-card__icon" aria-hidden="true" set:html={serviceIcons[service.id] ?? serviceIcons['doplnkove']} />
+            <h3 class="service-card__title">{service.title}</h3>
+            <p class="service-card__desc">{service.description}</p>
+            <div class="service-card__meta">
+              <Badge text={`od ${service.priceFrom}`} variant="gold" />
+              <Badge text={service.duration} variant="subtle" />
+            </div>
+          </Card>
+        </li>
+      ))}
+    </ul>
+
+    <div class="services__cta">
+      <Button href="/sluzby" variant="outline" size="md">Zobrazit celý ceník</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* Service card internals */
+  .service-card__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-hover);
+    flex-shrink: 0;
+    margin-bottom: var(--space-1);
+  }
+
+  .service-card__icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  .service-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .service-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .service-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-2);
+  }
+
+  .services__cta {
+    text-align: center;
+    margin-top: var(--space-10);
+  }
+
+  @media (max-width: 768px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

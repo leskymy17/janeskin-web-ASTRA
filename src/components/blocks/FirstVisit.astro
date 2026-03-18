@@ -1,0 +1,109 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import InfoBox from '../ui/InfoBox.astro';
+import Button from '../ui/Button.astro';
+
+const infoItems = [
+  {
+    title: 'Vstupní konzultace 30 min',
+    text: 'Probereme Váš aktuální stav pleti, přání a nastavíme plán péče.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  },
+  {
+    title: 'Pro ženy i muže',
+    text: 'Péče přizpůsobená každému klientovi bez rozdílu pohlaví nebo věku.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+  {
+    title: 'Kontraindikace',
+    text: 'Upozorňujeme na alergie na bílkoviny z ryb — nezapomeňte nás předem informovat.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  },
+];
+---
+
+<section class="first-visit section section--alt" id="prvni-navsteva" aria-label="První návštěva">
+  <div class="first-visit__inner container">
+    <div class="first-visit__heading" data-animate>
+      <SectionHeading
+        label="Začínáme"
+        title="Jste u nás poprvé?"
+        subtitle="Při první návštěvě si spolu v klidu sedneme a probereme Vaši současnou péči, požadavky a přání."
+        align="left"
+      />
+    </div>
+
+    <div class="first-visit__content" data-animate data-delay="200">
+      <div class="first-visit__text">
+        <p>
+          Pomůžu Vám se zorientovat v nabídce a společně nastavíme plán péče —
+          jak v salonu, tak doma.
+        </p>
+        <p>
+          Jako první ošetření nejčastěji volím <strong>Collagen Intensive Hydroboost</strong>,
+          kterým Vaší pleti dodám hydrataci a zářivost. Je to ideální seznámení
+          s přípravky Larens.
+        </p>
+      </div>
+
+      <ul class="first-visit__infoboxes" role="list">
+        {infoItems.map(item => (
+          <li>
+            <InfoBox icon={item.icon} title={item.title} text={item.text} />
+          </li>
+        ))}
+      </ul>
+
+      <Button href="#kontakt" variant="primary" size="md">Domluvit první návštěvu</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .first-visit__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  .first-visit__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .first-visit__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .first-visit__text p {
+    font-size: var(--text-lg);
+    color: var(--color-text-soft);
+    line-height: 1.7;
+  }
+
+  .first-visit__text strong {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  .first-visit__infoboxes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 768px) {
+    .first-visit__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    .first-visit__text p {
+      font-size: var(--text-base);
+    }
+  }
+</style>

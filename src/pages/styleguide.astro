@@ -1,0 +1,920 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+import Badge from '../components/ui/Badge.astro';
+import Card from '../components/ui/Card.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import InfoBox from '../components/ui/InfoBox.astro';
+import Placeholder from '../components/ui/Placeholder.astro';
+import Container from '../components/ui/Container.astro';
+
+const colors = [
+  { name: '--color-bg',           hex: '#FBF8F4', label: 'Pozadí' },
+  { name: '--color-bg-alt',       hex: '#F3EDE5', label: 'Pozadí alt' },
+  { name: '--color-text',         hex: '#2C2420', label: 'Text' },
+  { name: '--color-text-soft',    hex: '#6B5D4F', label: 'Text soft' },
+  { name: '--color-accent',       hex: '#C9A96E', label: 'Accent' },
+  { name: '--color-accent-hover', hex: '#B8963E', label: 'Accent hover' },
+  { name: '--color-accent-light', hex: '#E8D9B8', label: 'Accent light' },
+  { name: '--color-white',        hex: '#FFFFFF', label: 'Bílá' },
+  { name: '--color-border',       hex: '#E5DDD3', label: 'Border' },
+];
+
+const typeScale = [
+  { token: '--text-xs',   size: '0.75rem',  px: '12px',  label: 'XS — popisky' },
+  { token: '--text-sm',   size: '0.875rem', px: '14px',  label: 'SM — labely, meta' },
+  { token: '--text-base', size: '1rem',     px: '16px',  label: 'BASE — tělo textu' },
+  { token: '--text-lg',   size: '1.125rem', px: '18px',  label: 'LG — zvýrazněný text' },
+  { token: '--text-xl',   size: '1.25rem',  px: '20px',  label: 'XL — podnadpisy' },
+  { token: '--text-2xl',  size: '1.5rem',   px: '24px',  label: '2XL — H4' },
+  { token: '--text-3xl',  size: '1.875rem', px: '30px',  label: '3XL — H3' },
+  { token: '--text-4xl',  size: '2.25rem',  px: '36px',  label: '4XL — H2' },
+  { token: '--text-5xl',  size: '3rem',     px: '48px',  label: '5XL — H1 desktop' },
+  { token: '--text-6xl',  size: '3.75rem',  px: '60px',  label: '6XL — Hero nadpis' },
+];
+
+const spacing = [
+  { token: '--space-1',  val: '0.25rem', px: '4px'  },
+  { token: '--space-2',  val: '0.5rem',  px: '8px'  },
+  { token: '--space-3',  val: '0.75rem', px: '12px' },
+  { token: '--space-4',  val: '1rem',    px: '16px' },
+  { token: '--space-5',  val: '1.25rem', px: '20px' },
+  { token: '--space-6',  val: '1.5rem',  px: '24px' },
+  { token: '--space-8',  val: '2rem',    px: '32px' },
+  { token: '--space-10', val: '2.5rem',  px: '40px' },
+  { token: '--space-12', val: '3rem',    px: '48px' },
+  { token: '--space-16', val: '4rem',    px: '64px' },
+  { token: '--space-20', val: '5rem',    px: '80px' },
+  { token: '--space-24', val: '6rem',    px: '96px' },
+];
+
+const radii = [
+  { token: '--radius-sm',   val: '6px'    },
+  { token: '--radius-md',   val: '8px'    },
+  { token: '--radius-lg',   val: '14px'   },
+  { token: '--radius-xl',   val: '20px'   },
+  { token: '--radius-full', val: '9999px' },
+];
+
+const shadows = [
+  { token: '--shadow-sm',         label: 'SM'         },
+  { token: '--shadow-md',         label: 'MD'         },
+  { token: '--shadow-lg',         label: 'LG'         },
+  { token: '--shadow-card',       label: 'Card'       },
+  { token: '--shadow-card-hover', label: 'Card hover' },
+];
+
+const iconSample = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+---
+
+<Layout title="Styleguide" noIndex={true}>
+
+  <div class="sg-wrap">
+
+    <!-- ══════════════════════════════════════
+         HEADER
+    ═══════════════════════════════════════ -->
+    <div class="sg-page-header">
+      <div class="sg-page-header__inner container">
+        <div>
+          <p class="sg-eyebrow">JANESKIN</p>
+          <h1 class="sg-page-title">Design System & Styleguide</h1>
+          <p class="sg-page-sub">Přehled všech tokenů, typografie, komponent a variant. Stránka není indexována.</p>
+        </div>
+        <nav class="sg-toc" aria-label="Obsah">
+          <a href="#colors">Barvy</a>
+          <a href="#typography">Typografie</a>
+          <a href="#spacing">Spacing</a>
+          <a href="#radius">Radius</a>
+          <a href="#shadows">Stíny</a>
+          <a href="#buttons">Tlačítka</a>
+          <a href="#badges">Badge</a>
+          <a href="#cards">Karty</a>
+          <a href="#headings">SectionHeading</a>
+          <a href="#infobox">InfoBox</a>
+          <a href="#placeholder">Placeholder</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="sg-body container">
+
+      <!-- ══════════════════════════════════════
+           BARVY
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="colors">
+        <h2 class="sg-section-title">Barvy</h2>
+        <div class="sg-colors">
+          {colors.map(c => (
+            <div class="sg-color">
+              <div
+                class="sg-color__swatch"
+                style={`background:${c.hex}; ${c.hex === '#FFFFFF' ? 'border: 1px solid var(--color-border);' : ''}`}
+              ></div>
+              <p class="sg-color__label">{c.label}</p>
+              <p class="sg-color__token">{c.name}</p>
+              <p class="sg-color__hex">{c.hex}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           TYPOGRAFIE
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="typography">
+        <h2 class="sg-section-title">Typografie</h2>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Rodiny písem</h3>
+          <div class="sg-fonts">
+            <div class="sg-font-card">
+              <p class="sg-font-card__name">Playfair Display</p>
+              <p class="sg-font-card__token">--font-heading · weight 500</p>
+              <p class="sg-font-card__sample sg-font-card__sample--heading">
+                Aa Bb Cc Dd Ee<br />
+                JANESKIN — Kosmetický salon<br />
+                <em>Kurzíva pro elegantní akcenty</em>
+              </p>
+            </div>
+            <div class="sg-font-card">
+              <p class="sg-font-card__name">DM Sans</p>
+              <p class="sg-font-card__token">--font-body · weight 400 / 500</p>
+              <p class="sg-font-card__sample sg-font-card__sample--body">
+                Aa Bb Cc Dd Ee<br />
+                Profesionální kosmetická péče s kosmeceutikou Larens.<br />
+                <strong>Tučný text pro důraz.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Nadpisy (Playfair Display 500)</h3>
+          <div class="sg-type-headings">
+            <div class="sg-type-row">
+              <span class="sg-type-meta">H1 · 5xl · 48px</span>
+              <h1 class="sg-demo-h1">Péče o Vaši pleť s láskou</h1>
+            </div>
+            <div class="sg-type-row">
+              <span class="sg-type-meta">H2 · 4xl · 36px</span>
+              <h2 class="sg-demo-h2">Co pro Vás mohu udělat</h2>
+            </div>
+            <div class="sg-type-row">
+              <span class="sg-type-meta">H3 · 3xl · 30px</span>
+              <h3 class="sg-demo-h3">Kosmetická péče Larens</h3>
+            </div>
+            <div class="sg-type-row">
+              <span class="sg-type-meta">H4 · 2xl · 24px</span>
+              <h4 class="sg-demo-h4">Microneedling s Exosomy</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Škála velikostí (DM Sans)</h3>
+          <div class="sg-type-scale">
+            {typeScale.map(t => (
+              <div class="sg-type-scale-row">
+                <span class="sg-type-meta">{t.token} · {t.px}</span>
+                <span style={`font-size: ${t.size}; font-family: var(--font-body); color: var(--color-text);`}>
+                  {t.label} — Jana Szymiková
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Utility třídy</h3>
+          <div class="sg-type-utils">
+            <p class="label">Label — uppercase, tracking</p>
+            <p class="text-soft">text-soft — tlumená barva textu</p>
+            <p class="text-accent">text-accent — zlatá barva</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           SPACING
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="spacing">
+        <h2 class="sg-section-title">Spacing (4px grid)</h2>
+        <div class="sg-spacing">
+          {spacing.map(s => (
+            <div class="sg-spacing-row">
+              <code class="sg-spacing-token">{s.token}</code>
+              <span class="sg-spacing-val">{s.px}</span>
+              <div class="sg-spacing-bar" style={`width: ${s.px}; min-width: 4px;`}></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           BORDER RADIUS
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="radius">
+        <h2 class="sg-section-title">Border Radius</h2>
+        <div class="sg-radii">
+          {radii.map(r => (
+            <div class="sg-radius-item">
+              <div class="sg-radius-box" style={`border-radius: ${r.val};`}></div>
+              <code class="sg-radius-token">{r.token}</code>
+              <span class="sg-radius-val">{r.val}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           STÍNY
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="shadows">
+        <h2 class="sg-section-title">Stíny</h2>
+        <div class="sg-shadows">
+          {shadows.map(s => (
+            <div class="sg-shadow-item">
+              <div class="sg-shadow-box" style={`box-shadow: var(${s.token});`}></div>
+              <code class="sg-shadow-token">{s.token}</code>
+              <span class="sg-shadow-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           BUTTONS
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="buttons">
+        <h2 class="sg-section-title">Tlačítka</h2>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Varianty</h3>
+          <div class="sg-row sg-row--wrap">
+            <Button variant="primary" size="md">Primary</Button>
+            <Button variant="outline" size="md">Outline</Button>
+            <Button variant="text" size="md">Text</Button>
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Velikosti (primary)</h3>
+          <div class="sg-row sg-row--wrap sg-row--baseline">
+            <Button variant="primary" size="sm">Small</Button>
+            <Button variant="primary" size="md">Medium</Button>
+            <Button variant="primary" size="lg">Large</Button>
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Velikosti (outline)</h3>
+          <div class="sg-row sg-row--wrap sg-row--baseline">
+            <Button variant="outline" size="sm">Small</Button>
+            <Button variant="outline" size="md">Medium</Button>
+            <Button variant="outline" size="lg">Large</Button>
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <h3 class="sg-subsection-title">Jako odkaz (href)</h3>
+          <div class="sg-row sg-row--wrap">
+            <Button href="#" variant="primary" size="md">Objednat se</Button>
+            <Button href="#" variant="outline" size="md">Více informací</Button>
+            <Button href="#" variant="text" size="md">Zobrazit ceník</Button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           BADGES
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="badges">
+        <h2 class="sg-section-title">Badge</h2>
+        <div class="sg-row sg-row--wrap">
+          <Badge text="od 1 100 Kč" variant="gold" />
+          <Badge text="60 min" variant="subtle" />
+          <Badge text="Zvýhodněný balíček" variant="gold" />
+          <Badge text="Nové" variant="gold" />
+          <Badge text="45–120 min" variant="subtle" />
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           CARDS
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="cards">
+        <h2 class="sg-section-title">Karty</h2>
+        <div class="sg-cards-grid">
+
+          <div>
+            <p class="sg-variant-label">Service card</p>
+            <Card variant="service">
+              <div class="sg-card-icon" aria-hidden="true" set:html={iconSample} />
+              <h3 class="sg-card-title">Kosmetická péče</h3>
+              <p class="sg-card-text">Specializovaná ošetření s kosmeceutikou Larens pro každý typ pleti.</p>
+              <div class="sg-card-meta">
+                <Badge text="od 1 100 Kč" variant="gold" />
+                <Badge text="60–120 min" variant="subtle" />
+              </div>
+            </Card>
+          </div>
+
+          <div>
+            <p class="sg-variant-label">Info card</p>
+            <Card variant="info">
+              <div class="sg-card-icon" aria-hidden="true" set:html={iconSample} />
+              <h3 class="sg-card-title">Příprava pleti</h3>
+              <p class="sg-card-text">Balíček 3× kosmetické ošetření pro dokonalou přípravu pleti před svatebním dnem.</p>
+              <Badge text="3 500 Kč" variant="gold" />
+            </Card>
+          </div>
+
+          <div>
+            <p class="sg-variant-label">Testimonial card</p>
+            <Card variant="testimonial">
+              <div class="sg-testimonial-body">
+                <p class="sg-testimonial-text">Jana je naprosto skvělá profesionálka. Její holistický přístup a osobní péče mě nadchly.</p>
+                <div class="sg-testimonial-author">
+                  <div class="sg-testimonial-avatar">M</div>
+                  <div>
+                    <p style="font-weight: var(--weight-medium); font-size: var(--text-sm);">Markéta</p>
+                    <p style="font-size: var(--text-xs); color: var(--color-text-soft);">Klientka salonu</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           SECTION HEADING
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="headings">
+        <h2 class="sg-section-title">SectionHeading</h2>
+
+        <div class="sg-subsection">
+          <p class="sg-variant-label">align="center" (výchozí)</p>
+          <div class="sg-demo-box">
+            <SectionHeading
+              label="Nabídka"
+              title="Co pro Vás mohu udělat"
+              subtitle="Každé ošetření přizpůsobuji stavu Vaší pleti a individuálním potřebám."
+              align="center"
+            />
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <p class="sg-variant-label">align="left"</p>
+          <div class="sg-demo-box">
+            <SectionHeading
+              label="O mně"
+              title="Jana Szymiková"
+              subtitle="Kosmetika je moje vášeň. Svůj salon jsem vybudovala s jedinou myšlenkou."
+              align="left"
+            />
+          </div>
+        </div>
+
+        <div class="sg-subsection">
+          <p class="sg-variant-label">Bez label a subtitle</p>
+          <div class="sg-demo-box">
+            <SectionHeading title="Jen samotný nadpis" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           INFOBOX
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="infobox">
+        <h2 class="sg-section-title">InfoBox</h2>
+        <div class="sg-infoboxes">
+          <InfoBox
+            icon={iconSample}
+            title="Vstupní konzultace 30 min"
+            text="Probereme Váš aktuální stav pleti, přání a nastavíme plán péče."
+          />
+          <InfoBox
+            icon={`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`}
+            title="Pro ženy i muže"
+            text="Péče přizpůsobená každému klientovi bez rozdílu."
+          />
+          <InfoBox
+            title="Bez ikony"
+            text="InfoBox lze použít i bez ikony — text se zarovná doleva."
+          />
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+           PLACEHOLDER
+      ═══════════════════════════════════════ -->
+      <section class="sg-section" id="placeholder">
+        <h2 class="sg-section-title">Placeholder</h2>
+        <div class="sg-placeholders">
+          <div>
+            <p class="sg-variant-label">aspect="3/4"</p>
+            <Placeholder aspect="3/4" label="Fotografie 3/4" />
+          </div>
+          <div>
+            <p class="sg-variant-label">aspect="square"</p>
+            <Placeholder aspect="square" label="Čtvercová fotografie" />
+          </div>
+          <div>
+            <p class="sg-variant-label">aspect="16/9"</p>
+            <Placeholder aspect="16/9" label="Fotografie 16/9" />
+          </div>
+          <div>
+            <p class="sg-variant-label">aspect="4/3"</p>
+            <Placeholder aspect="4/3" label="Fotografie 4/3" />
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /.sg-body -->
+  </div><!-- /.sg-wrap -->
+
+</Layout>
+
+<style>
+  /* ── Layout ── */
+  .sg-wrap {
+    min-height: 100vh;
+  }
+
+  .sg-page-header {
+    background-color: var(--color-text);
+    padding-top: calc(72px + var(--space-10));
+    padding-bottom: var(--space-10);
+  }
+
+  .sg-page-header__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-10);
+    flex-wrap: wrap;
+  }
+
+  .sg-eyebrow {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-2);
+  }
+
+  .sg-page-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-medium);
+    color: var(--color-white);
+    margin-bottom: var(--space-3);
+  }
+
+  .sg-page-sub {
+    font-size: var(--text-base);
+    color: rgba(255,255,255,0.5);
+  }
+
+  .sg-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-content: flex-start;
+    max-width: 360px;
+  }
+
+  .sg-toc a {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm);
+    padding: var(--space-1) var(--space-3);
+    transition: all var(--transition-fast);
+  }
+
+  .sg-toc a:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .sg-body {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-20);
+  }
+
+  /* ── Sections ── */
+  .sg-section {
+    scroll-margin-top: 90px;
+  }
+
+  .sg-section-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-accent-light);
+    margin-bottom: var(--space-8);
+  }
+
+  .sg-subsection {
+    margin-bottom: var(--space-8);
+  }
+
+  .sg-subsection-title {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-soft);
+    margin-bottom: var(--space-4);
+  }
+
+  .sg-variant-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .sg-demo-box {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-10) var(--space-8);
+  }
+
+  /* ── Colors ── */
+  .sg-colors {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .sg-color__swatch {
+    height: 80px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+  }
+
+  .sg-color__label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .sg-color__token {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--color-text-soft);
+    word-break: break-all;
+    margin-top: 2px;
+  }
+
+  .sg-color__hex {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    margin-top: 2px;
+  }
+
+  /* ── Fonts ── */
+  .sg-fonts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .sg-font-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .sg-font-card__name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-1);
+  }
+
+  .sg-font-card__token {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    margin-bottom: var(--space-4);
+  }
+
+  .sg-font-card__sample--heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-medium);
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .sg-font-card__sample--body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    color: var(--color-text);
+  }
+
+  /* ── Type headings ── */
+  .sg-type-headings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .sg-type-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sg-type-meta {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    white-space: nowrap;
+    min-width: 160px;
+    flex-shrink: 0;
+  }
+
+  .sg-demo-h1 { font-size: var(--text-5xl); font-family: var(--font-heading); font-weight: var(--weight-medium); color: var(--color-text); margin: 0; }
+  .sg-demo-h2 { font-size: var(--text-4xl); font-family: var(--font-heading); font-weight: var(--weight-medium); color: var(--color-text); margin: 0; }
+  .sg-demo-h3 { font-size: var(--text-3xl); font-family: var(--font-heading); font-weight: var(--weight-medium); color: var(--color-text); margin: 0; }
+  .sg-demo-h4 { font-size: var(--text-2xl); font-family: var(--font-heading); font-weight: var(--weight-medium); color: var(--color-text); margin: 0; }
+
+  /* ── Type scale ── */
+  .sg-type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .sg-type-scale-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ── Type utils ── */
+  .sg-type-utils {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  /* ── Spacing ── */
+  .sg-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .sg-spacing-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sg-spacing-token {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    min-width: 120px;
+  }
+
+  .sg-spacing-val {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    color: var(--color-accent-hover);
+    min-width: 48px;
+  }
+
+  .sg-spacing-bar {
+    height: 20px;
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-accent);
+  }
+
+  /* ── Radius ── */
+  .sg-radii {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    align-items: flex-end;
+  }
+
+  .sg-radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .sg-radius-box {
+    width: 80px;
+    height: 80px;
+    background-color: var(--color-accent-light);
+    border: 2px solid var(--color-accent);
+  }
+
+  .sg-radius-token {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--color-text-soft);
+    text-align: center;
+  }
+
+  .sg-radius-val {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    color: var(--color-accent-hover);
+  }
+
+  /* ── Shadows ── */
+  .sg-shadows {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    align-items: flex-end;
+  }
+
+  .sg-shadow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .sg-shadow-box {
+    width: 100px;
+    height: 100px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+  }
+
+  .sg-shadow-token {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--color-text-soft);
+    text-align: center;
+  }
+
+  .sg-shadow-label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent-hover);
+  }
+
+  /* ── Buttons row ── */
+  .sg-row {
+    display: flex;
+    gap: var(--space-4);
+  }
+  .sg-row--wrap { flex-wrap: wrap; }
+  .sg-row--baseline { align-items: flex-end; }
+
+  /* ── Cards ── */
+  .sg-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .sg-card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent-light);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-hover);
+  }
+
+  .sg-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+  }
+
+  .sg-card-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .sg-card-meta {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+
+  .sg-testimonial-body {
+    padding-top: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .sg-testimonial-text {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .sg-testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sg-testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-hover);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── InfoBoxes ── */
+  .sg-infoboxes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 560px;
+  }
+
+  /* ── Placeholders ── */
+  .sg-placeholders {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .sg-cards-grid { grid-template-columns: 1fr 1fr; }
+    .sg-placeholders { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .sg-fonts { grid-template-columns: 1fr; }
+    .sg-cards-grid { grid-template-columns: 1fr; }
+    .sg-type-row { flex-direction: column; gap: var(--space-2); }
+    .sg-type-scale-row { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+    .sg-page-header__inner { flex-direction: column; }
+    .sg-placeholders { grid-template-columns: 1fr 1fr; }
+  }
+</style>

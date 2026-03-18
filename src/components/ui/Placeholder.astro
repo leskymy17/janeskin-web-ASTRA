@@ -1,0 +1,76 @@
+---
+interface Props {
+  aspect?: 'square' | '16/9' | '3/4' | '4/3';
+  icon?: string;
+  label?: string;
+  class?: string;
+}
+
+const { aspect = '3/4', icon, label, class: className } = Astro.props;
+
+const aspectMap: Record<string, string> = {
+  'square': '1 / 1',
+  '16/9':   '16 / 9',
+  '3/4':    '3 / 4',
+  '4/3':    '4 / 3',
+};
+
+const aspectRatio = aspectMap[aspect] ?? '3 / 4';
+---
+
+<div
+  class:list={['placeholder', className]}
+  style={`aspect-ratio: ${aspectRatio};`}
+  role="img"
+  aria-label={label ?? 'Fotografie bude doplněna'}
+>
+  <div class="placeholder__inner">
+    {icon ? (
+      <span class="placeholder__icon" aria-hidden="true" set:html={icon} />
+    ) : (
+      <svg class="placeholder__icon" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+    )}
+    {label && <p class="placeholder__label">{label}</p>}
+  </div>
+</div>
+
+<style>
+  .placeholder {
+    width: 100%;
+    background-color: var(--color-bg-alt);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .placeholder__inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    color: var(--color-border);
+    padding: var(--space-4);
+  }
+
+  .placeholder__icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: var(--color-accent-light);
+  }
+
+  .placeholder__label {
+    font-size: var(--text-xs);
+    color: var(--color-text-soft);
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+</style>
