@@ -5,6 +5,8 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
   type?: 'button' | 'submit' | 'reset';
   ariaLabel?: string;
+  target?: string;
+  rel?: string;
 }
 
 const {
@@ -13,13 +15,15 @@ const {
   size = 'md',
   type = 'button',
   ariaLabel,
+  target,
+  rel,
 } = Astro.props;
 
 const classes = ['btn', `btn--${variant}`, `btn--${size}`].join(' ');
 ---
 
 {href ? (
-  <a href={href} class={classes} aria-label={ariaLabel}>
+  <a href={href} class={classes} aria-label={ariaLabel} target={target} rel={rel}>
     <slot />
     {variant === 'text' && <span class="btn__arrow" aria-hidden="true">→</span>}
   </a>

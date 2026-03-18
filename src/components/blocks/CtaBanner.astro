@@ -3,18 +3,33 @@ import Button from '../ui/Button.astro';
 ---
 
 <section class="cta-banner" aria-label="Výzva k akci">
-  <div class="cta-banner__inner container" data-animate>
-    <div class="cta-banner__text">
-      <p class="cta-banner__label">Jsme připraveni</p>
-      <h2 class="cta-banner__title">Připravte své pleti to nejlepší</h2>
-      <p class="cta-banner__subtitle">
-        Objednejte se ještě dnes a udělejte první krok k zářivé a zdravé pleti.
-      </p>
-    </div>
+  <div class="cta-banner__bg">
+    <img
+      src="/images/footer-bg.webp"
+      alt=""
+      class="cta-banner__img"
+      loading="lazy"
+      decoding="async"
+      aria-hidden="true"
+      width="1920"
+      height="800"
+    />
+    <div class="cta-banner__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="cta-banner__inner" data-animate>
+    <p class="cta-banner__label">Začněte dnes</p>
+    <h2 class="cta-banner__title">Máte zájem o některou<br />ze služeb?</h2>
+    <p class="cta-banner__subtitle">
+      Rezervujte si termín online nebo nám zavolejte.<br />
+      Rádi vám poradíme s výběrem ošetření.
+    </p>
     <div class="cta-banner__actions">
-      <Button href="#kontakt" variant="primary" size="lg">Objednat se online</Button>
+      <Button href="https://noona.app/cs/janeskinsalonjanaszymikova" variant="primary" size="lg" target="_blank" rel="noopener noreferrer">Objednat se online</Button>
       <Button href="tel:+420000000000" variant="outline" size="lg">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
         Zavolat
       </Button>
     </div>
@@ -23,23 +38,47 @@ import Button from '../ui/Button.astro';
 
 <style>
   .cta-banner {
-    background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-bg-alt) 100%);
-    border-top: 1px solid var(--color-accent-light);
-    border-bottom: 1px solid var(--color-accent-light);
-    padding: var(--space-16) 0;
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cta-banner__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .cta-banner__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  .cta-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(44, 36, 32, 0.45) 0%,
+      rgba(44, 36, 32, 0.40) 40%,
+      rgba(44, 36, 32, 0.80) 72%,
+      #2C2420 100%
+    );
   }
 
   .cta-banner__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-10);
-  }
-
-  .cta-banner__text {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: var(--space-20) var(--space-6);
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .cta-banner__label {
@@ -47,59 +86,56 @@ import Button from '../ui/Button.astro';
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-accent-hover);
+    letter-spacing: 0.14em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
   }
 
   .cta-banner__title {
     font-family: var(--font-heading);
-    font-size: var(--text-4xl);
+    font-size: var(--text-5xl);
     font-weight: var(--weight-regular);
-    color: var(--color-text);
-    line-height: 1.15;
+    color: var(--color-white);
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
   }
 
   .cta-banner__subtitle {
+    font-family: var(--font-body);
     font-size: var(--text-lg);
-    color: var(--color-text-soft);
-    max-width: 480px;
+    font-weight: var(--weight-regular);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-10);
   }
 
   .cta-banner__actions {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 1024px) {
-    .cta-banner__inner {
-      flex-direction: column;
-      text-align: center;
-    }
-    .cta-banner__text {
-      align-items: center;
-    }
-    .cta-banner__actions {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
 
   @media (max-width: 768px) {
     .cta-banner {
-      padding: var(--space-12) 0;
+      min-height: 480px;
     }
     .cta-banner__title {
-      font-size: var(--text-3xl);
+      font-size: var(--text-4xl);
     }
     .cta-banner__subtitle {
       font-size: var(--text-base);
     }
+  }
+
+  @media (max-width: 480px) {
+    .cta-banner__title {
+      font-size: var(--text-3xl);
+    }
     .cta-banner__actions {
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
     }
   }
 </style>

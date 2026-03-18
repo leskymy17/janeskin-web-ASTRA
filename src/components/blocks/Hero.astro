@@ -50,7 +50,7 @@ const trustItems = [
         pro každý typ pleti. Pro ženy i muže, bez rozdílu věku.
       </p>
       <div class="hero__actions" data-animate data-delay="400">
-        <Button href="#kontakt" variant="primary" size="lg">Objednat se</Button>
+        <Button href="https://noona.app/cs/janeskinsalonjanaszymikova" variant="primary" size="lg" target="_blank" rel="noopener noreferrer">Objednat se</Button>
         <Button href="/sluzby" variant="outline" size="lg">Prohlédnout služby</Button>
       </div>
     </div>
@@ -71,7 +71,6 @@ const trustItems = [
     min-height: 85vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
   }
 
   /* Background */
@@ -104,16 +103,19 @@ const trustItems = [
   .hero__content {
     position: relative;
     z-index: 1;
-    padding: 0 var(--space-6);
-    padding-top: 120px;
-    padding-bottom: var(--space-16);
+    flex: 1;
+    padding: 120px var(--space-6) var(--space-16);
     max-width: var(--max-width);
     margin: 0 auto;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .hero__text {
     max-width: 700px;
+    text-align: left;
   }
 
   .hero__label {
@@ -148,6 +150,7 @@ const trustItems = [
     flex-wrap: wrap;
     gap: var(--space-4);
     align-items: center;
+    justify-content: flex-start;
   }
 
   /* Trust strip */
@@ -183,6 +186,7 @@ const trustItems = [
     .hero__content {
       padding-top: 100px;
       padding-bottom: var(--space-10);
+      align-items: center;
     }
     .hero__trust-inner {
       grid-template-columns: 1fr 1fr;
